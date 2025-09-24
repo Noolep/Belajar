@@ -4,6 +4,7 @@
   <title>Tugas Html</title>
   <link rel="icon" href="smk.png" type="image/png">
   <link rel="apple-touch-icon" href="smk.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
@@ -11,30 +12,22 @@
       scroll-behavior: smooth;
       display: flex;
     }
-    #about h1 {
-      font-size: 2.2rem;
-    }
-    #about ol {
-      font-size: 1.25rem;
-      line-height: 1.8;
-      margin-top: 18px;
-      margin-bottom: 0;
-    }
-    #about ol li {
-      margin-bottom: 10px;
-    }
+
+    /* Sidebar */
     .sidebar {
       position: fixed;
       top: 0;
       left: 0;
-      width: 200px;
+      width: 220px;
       height: 100%;
       background: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 50px;
-      z-index: 1000;
+      padding-top: 60px;
+      z-index: 1001;
+      transform: translateX(0);
+      transition: transform 0.3s ease;
     }
     .sidebar a {
       color: #fff;
@@ -54,29 +47,50 @@
       color: #000;
       transform: scale(1.1);
     }
+
+    /* Overlay gelap */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    .overlay.show {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Konten */
     .content {
-      margin-left: 200px;
+      margin-left: 220px;
       flex: 1;
     }
     section {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      transition: background 0.5s;
       padding: 20px;
     }
     section img {
       max-width: 300px;
       border-radius: 10px;
       width: 100%;
-      heigh: auto;
+      height: auto;
     }
     iframe, table {
-      max-width:100%
-      width:100%
+      max-width: 100%;
+      width: 100%;
       height: auto;
     }
     #home { background: #f5f5f5; }
@@ -84,47 +98,55 @@
     #services { background: #fef3c7; }
     #tabel { background: #fde2e2; }
 
-    @media (max-width:768px) {
+    /* Tombol hamburger */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #333;
+      color: #fff;
+      font-size: 1.5rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    /* --- Responsive HP --- */
+    @media (max-width: 768px) {
       body {
         flex-direction: column;
       }
       .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 10px 0;
+        transform: translateX(-100%);
       }
-      .sidebar a {
-        margin: 0;
-        padding: 10px;
-        width: auto;
-        font-size: 0.9rem;
-      }
-      .content {
-        margin: 0;
-        padding: 10px;
-        width: auto;
-        font-size: 0.9rem;
+      .sidebar.show {
+        transform: translateX(0);
       }
       .content {
         margin-left: 0;
       }
-      section {
-        padding: 15px;
+      .hamburger {
+        display: block;
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- Tombol Hamburger -->
+  <div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
   <!-- SIDEBAR -->
-  <div class="sidebar">
-    <a href="#home" class="active">Home</a>
-    <a href="#about">List</a>
-    <a href="#Video">Video</a>
-    <a href="#tabel">Tabel</a>
+  <div class="sidebar" id="sidebar">
+    <a href="#home" class="active" onclick="toggleSidebar()">Home</a>
+    <a href="#about" onclick="toggleSidebar()">List</a>
+    <a href="#Video" onclick="toggleSidebar()">Video</a>
+    <a href="#tabel" onclick="toggleSidebar()">Tabel</a>
   </div>
 
   <!-- CONTENT -->
@@ -137,13 +159,13 @@
     <section id="about">
       <h1>Tutorial Pasang Nyarch Linux</h1>
       <ol style="text-align:left; margin:0 auto;">
-        <li>
-            Download ISO Nyarch Linux dari<a href="https://nyarchlinux.moe" target="_blank" style="margin-left:8px; color:#2563eb; text-decoration:underline;">website</a> resmi.
+        <li>Download ISO Nyarch Linux dari 
+          <a href="https://nyarchlinux.moe" target="_blank" style="margin-left:8px; color:#2563eb; text-decoration:underline;">website</a> resmi.</li>
         <li>Buat bootable USB pakai Rufus atau balenaEtcher.</li>
         <li>Boot dari USB lalu masuk ke live environment.</li>
         <li>Cek koneksi internet dengan <code>ping archlinux.org</code>.</li>
         <li>Atur partisi dengan <code>fdisk</code> atau <code>cfdisk</code>.</li>
-        <li>Format partisi (misalnya ext4) lalu mount ke <code>/mnt</code>.</li>
+        <li>Format partisi lalu mount ke <code>/mnt</code>.</li>
         <li>Install base system: <code>pacstrap /mnt base linux linux-firmware</code>.</li>
         <li>Generate fstab: <code>genfstab -U /mnt >> /mnt/etc/fstab</code>.</li>
         <li>Masuk ke sistem: <code>arch-chroot /mnt</code>.</li>
@@ -154,10 +176,8 @@
     </section>
 
     <section id="Video" style="background:#f5f5f5;">
-      <h2 style="margin-bottom:8px;">Video</h2>
-      <p style="margin-bottom:18px;">
-        ini tutorial cara memasang Nyarch Linux
-      </p>
+      <h2>Video</h2>
+      <p>ini tutorial cara memasang Nyarch Linux</p>
       <iframe
         src="https://www.youtube.com/embed/ihHrQAvXb4Q?si=fPfZqgC2eBFYB0OL"
         title="YouTube video player"
@@ -190,23 +210,13 @@
           </tr>
           <tr>
             <td style="padding:10px 8px;border:1px solid #bbb;">Keamanan Tinggi</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (lebih aman dari virus)</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">❌ (lebih rentan malware)</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">❌</td>
           </tr>
           <tr style="background:#f3f4f6;">
             <td style="padding:10px 8px;border:1px solid #bbb;">Update Fleksibel</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (rolling release)</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">❌ (update terjadwal)</td>
-          </tr>
-          <tr>
-            <td style="padding:10px 8px;border:1px solid #bbb;">Kompatibilitas Software</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">❌ (beberapa software tidak tersedia)</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (banyak software & game)</td>
-          </tr>
-          <tr style="background:#f3f4f6;">
-            <td style="padding:10px 8px;border:1px solid #bbb;">Dukungan Komunitas</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (komunitas aktif)</td>
-            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (forum & support resmi)</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">❌</td>
           </tr>
         </tbody>
       </table>
@@ -214,12 +224,17 @@
   </div>
 
   <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("show");
+      document.getElementById("overlay").classList.toggle("show");
+    }
+
+    // Highlight menu saat scroll
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll(".sidebar a");
 
     window.addEventListener("scroll", () => {
       let current = "";
-
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -227,7 +242,6 @@
           current = section.getAttribute("id");
         }
       });
-
       navLinks.forEach(link => {
         link.classList.remove("active");
         if (link.getAttribute("href") === "#" + current) {
@@ -236,8 +250,5 @@
       });
     });
   </script>
-
 </body>
-
 </html>
-
