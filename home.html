@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tugas Html</title>
+  <link rel="icon" href="smk.png" type="image/png">
+  <link rel="apple-touch-icon" href="smk.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+      display: flex;
+    }
+    #about h1 {
+      font-size: 2.2rem;
+    }
+    #about ol {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin-top: 18px;
+      margin-bottom: 0;
+    }
+    #about ol li {
+      margin-bottom: 10px;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      margin: 15px 0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: 0.3s;
+      width: 80%;
+      text-align: center;
+    }
+    .sidebar a:hover {
+      background: #444;
+    }
+    .sidebar a.active {
+      background: #ffcc00;
+      color: #000;
+      transform: scale(1.1);
+    }
+    .content {
+      margin-left: 200px;
+      flex: 1;
+    }
+    section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: background 0.5s;
+    }
+    section h1 {
+      margin-bottom: 20px;
+    }
+    section img {
+      max-width: 300px;
+      border-radius: 10px;
+    }
+    #home { background: #f5f5f5; }
+    #about { background: #dbeafe; }
+    #services { background: #fef3c7; }
+    #tabel { background: #fde2e2; }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">List</a>
+    <a href="#Video">Video</a>
+    <a href="#tabel">Tabel</a>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <section id="home">
+      <h1>Tugas Ricard ^_^</h1>
+      <img src="rpl.png" alt="Gambar Contoh">
+    </section>
+
+    <section id="about">
+      <h1>Tutorial Pasang Nyarch Linux</h1>
+      <ol style="text-align:left; margin:0 auto;">
+        <li>
+            Download ISO Nyarch Linux dari<a href="https://nyarchlinux.moe" target="_blank" style="margin-left:8px; color:#2563eb; text-decoration:underline;">website</a> resmi.
+        <li>Buat bootable USB pakai Rufus atau balenaEtcher.</li>
+        <li>Boot dari USB lalu masuk ke live environment.</li>
+        <li>Cek koneksi internet dengan <code>ping archlinux.org</code>.</li>
+        <li>Atur partisi dengan <code>fdisk</code> atau <code>cfdisk</code>.</li>
+        <li>Format partisi (misalnya ext4) lalu mount ke <code>/mnt</code>.</li>
+        <li>Install base system: <code>pacstrap /mnt base linux linux-firmware</code>.</li>
+        <li>Generate fstab: <code>genfstab -U /mnt >> /mnt/etc/fstab</code>.</li>
+        <li>Masuk ke sistem: <code>arch-chroot /mnt</code>.</li>
+        <li>Atur zona waktu, locale, hostname, dan password root.</li>
+        <li>Install bootloader (GRUB / systemd-boot).</li>
+        <li>Reboot dan login ke sistem Nyarch Linux baru 🎉.</li>
+      </ol>
+    </section>
+
+    <section id="Video" style="background:#f5f5f5;">
+      <h2 style="margin-bottom:8px;">Video</h2>
+      <p style="margin-bottom:18px;">
+        ini tutorial cara memasang Nyarch Linux
+      </p>
+      <iframe
+        src="https://www.youtube.com/embed/ihHrQAvXb4Q?si=fPfZqgC2eBFYB0OL"
+        title="YouTube video player"
+        style="width:80%;max-width:900px;height:480px;border-radius:10px;border:none;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </section>
+
+    <section id="tabel">
+      <h1>Perbedaan Nyarch Linux dan Windows</h1>
+      <table style="width:90%;max-width:800px;margin:24px auto;border-collapse:collapse;font-size:1.1rem;">
+        <thead>
+          <tr style="background:#e0e7ff;">
+            <th style="padding:12px 8px;border:1px solid #bbb;">Kelebihan</th>
+            <th style="padding:12px 8px;border:1px solid #bbb;">Nyarch Linux</th>
+            <th style="padding:12px 8px;border:1px solid #bbb;">Windows</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px 8px;border:1px solid #bbb;">Gratis & Open Source</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">❌</td>
+          </tr>
+          <tr style="background:#f3f4f6;">
+            <td style="padding:10px 8px;border:1px solid #bbb;">Ringan & Customizable</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">❌ (lebih berat & terbatas)</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 8px;border:1px solid #bbb;">Keamanan Tinggi</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (lebih aman dari virus)</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">❌ (lebih rentan malware)</td>
+          </tr>
+          <tr style="background:#f3f4f6;">
+            <td style="padding:10px 8px;border:1px solid #bbb;">Update Fleksibel</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (rolling release)</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">❌ (update terjadwal)</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 8px;border:1px solid #bbb;">Kompatibilitas Software</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">❌ (beberapa software tidak tersedia)</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (banyak software & game)</td>
+          </tr>
+          <tr style="background:#f3f4f6;">
+            <td style="padding:10px 8px;border:1px solid #bbb;">Dukungan Komunitas</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (komunitas aktif)</td>
+            <td style="padding:10px 8px;border:1px solid #bbb;">✔️ (forum & support resmi)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".sidebar a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - sectionHeight / 3) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
